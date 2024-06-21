@@ -19,6 +19,7 @@ int recepcionDePedidos()
 
         if (cantidadDePedido < 50 || cantidadDePedido > 100) {
             cerr << "\033[31m" << "Cantidad de pedido invalida" << "\033[0m" << endl;
+            cantidadDePedido = -1;
         }
     } while(cantidadDePedido == -1);
     
@@ -182,7 +183,7 @@ int main()
             cout << "Ingrese una opcion: "; cin >> opcion;
             opcion = validarNumPosi(opcion);
             opcion = validarEntero(opcion);
-        } while (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4);
+        } while (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5);
         
         if (opcion == 1) {
             recepcionDePedidos();
