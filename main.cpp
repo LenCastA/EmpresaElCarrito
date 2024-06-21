@@ -41,6 +41,7 @@ int recepcionDePedidos()
 
         if (tipoDeProveedor.length() > 1){
             cerr << "\033[31m" << "Ingrese un solo caracter" << "\033[0m" << endl;
+            tipoDeProveedor = "";
             continue;
         }
         if (tipoDeProveedor != "A" && tipoDeProveedor != "B" && tipoDeProveedor != "C"){
