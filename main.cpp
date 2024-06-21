@@ -9,46 +9,66 @@ map<int, int> map1;
 map<string, int> map2;
 vector<string> talleres;
 
-int recepcionDePedidos()
+float validarTipoDePieza(float tipoDePieza)
 {
-    cout << "-----------------------------------" << endl;
-    do{
-        cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePedido;
-        cantidadDePedido = validarNumPosi(cantidadDePedido);
-        cantidadDePedido = validarEntero(cantidadDePedido);
-
-        if (cantidadDePedido < 50 || cantidadDePedido > 100) {
-            cerr << "\033[31m" << "Cantidad de pedido invalida" << "\033[0m" << endl;
-            cantidadDePedido = -1;
-        }
-    } while(cantidadDePedido == -1);
-    
     do {
         cout << "Ingrese el tipo de pieza: "; cin >> tipoDePieza;
-
-        tipoDePieza = validarNumPosi(tipoDePieza);
-        tipoDePieza = validarEntero(tipoDePieza);
+        tipoDePieza = validarEnteroPosi(tipoDePieza);
 
         if (tipoDePieza > 5) {
-            cerr << "\033[31m" << "Tipo de pieza invalido" << "\033[0m" << endl;
-            tipoDePieza = -1;;
+            msgError("Tipo de pieza invalido");
+            tipoDePieza = -1;
         }
 
     } while(tipoDePieza == -1);
+    return tipoDePieza;
+}
+
+void PrintMap1(std::map<int, int>& m)
+{
+    for (auto& item : m) {
+        cout << item.first << ":" << item.second << " || ";
+    }
+}
+
+void PrintMap2(std::map<string, int>& m)
+{
+    for (auto& item : m) {
+        cout << item.first << ":" << item.second << " || ";
+    }
+}
+
+int recepcionDePedidos()
+{
+    cout << "-----------------------------------" << endl;
+    cout << "\tRecepcion de pedidos" << endl;
 
     do{
-        cout << "Ingrese el tipo de proveedor: "; cin >> tipoDeProveedor;
+        cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePedido;
+        cantidadDePedido = validarEnteroPosi(cantidadDePedido);
+
+        if (cantidadDePedido < 50 || cantidadDePedido > 100) {
+            msgError("Cantidad de pedido invalida");
+            cantidadDePedido = -1;
+        }
+    } while(cantidadDePedido == -1);
+
+    tipoDePieza = validarTipoDePieza(tipoDePieza);
+
+    do{
+        cout << "Ingrese el tipo de proveedor (A, B o C): "; cin >> tipoDeProveedor;
 
         if (tipoDeProveedor.length() > 1){
-            cerr << "\033[31m" << "Ingrese un solo caracter" << "\033[0m" << endl;
+            msgError("Ingrese un solo caracter");
             tipoDeProveedor = "";
             continue;
         }
+
+        tipoDeProveedor = toupper(tipoDeProveedor[0]);
+
         if (tipoDeProveedor != "A" && tipoDeProveedor != "B" && tipoDeProveedor != "C"){
-            cerr << "\033[31m" << "Tipo de proveedor invalido" << "\033[0m" << endl;
+            msgError("Tipo de proveedor invalido");
             tipoDeProveedor = "";
-        } else {
-            tipoDeProveedor = toupper(tipoDeProveedor[0]);
         }
 
     } while(tipoDeProveedor == "");
@@ -69,26 +89,15 @@ int atencionDePedidos()
     cout << "-----------------------------------" << endl;
     cout << "\tAtencion de pedidos" << endl;
 
-    do {
-        cout << "Ingrese el tipo de pieza: "; cin >> tipoDePieza;
-        tipoDePieza = validarNumPosi(tipoDePieza);
-        tipoDePieza = validarEntero(tipoDePieza);
-
-        if (tipoDePieza > 5) {
-            cerr << "\033[31m" << "Tipo de pieza invalido" << "\033[0m" << endl;
-            tipoDePieza = -1;;
-        }
-
-    } while(tipoDePieza == -1);
+    tipoDePieza = validarTipoDePieza(tipoDePieza);
     
     do {
         cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePedido;
-        cantidadDePedido = validarNumPosi(cantidadDePedido);
-        cantidadDePedido = validarEntero(cantidadDePedido);
+        cantidadDePedido = validarEnteroPosi(cantidadDePedido);
     } while (cantidadDePedido == -1);
 
     if (map1[tipoDePieza] < cantidadDePedido) {
-        cerr << "\033[31m" << "No hay suficiente stock para completar el pedido" << "\033[0m" << endl;
+        msgError("No hay suficiente stock para completar el pedido");
         return 0;
     } else {
         map1[tipoDePieza] -= cantidadDePedido;
@@ -114,20 +123,6 @@ int atencionDePedidos()
     cout << "-----------------------------------" << endl;
 }
 
-void PrintMap1(std::map<int, int>& m)
-{
-    for (auto& item : m) {
-        cout << item.first << ":" << item.second << " || ";
-    }
-}
-
-void PrintMap2(std::map<string, int>& m)
-{
-    for (auto& item : m) {
-        cout << item.first << ":" << item.second << " || ";
-    }
-}
-
 int reporte()
 {
     cout << "-----------------------------------" << endl;
@@ -141,7 +136,7 @@ int aviso()
 {
     for (int i = 1; i < 6; i++) {
         if (map1[i] < 8) {
-            cerr << "\033[31m" << "Es necesario reponer el stock de las piezas " << i << "\033[0m" << endl;
+            msgError("Es necesario reponer el stock de las piezas " + to_string(i));
         }
     }
     
@@ -170,7 +165,6 @@ int main()
     map2["B"] = 0;
     map2["C"] = 0;
 
-
     while (opcion_valida != 5) {
         aviso();
 
@@ -184,16 +178,15 @@ int main()
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;
-            opcion = validarNumPosi(opcion);
-            opcion = validarEntero(opcion);
+            opcion = validarEnteroPosi(opcion);
             opcion_valida = int(opcion);
-            if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5) {
+            if (opcion_valida > 5) {
                 opcion = -1;
-                cerr << "\033[31m" << "Opcion invalida" << "\033[0m" << endl;
+                msgError("Opcion invalida");
             }
         } while (opcion == -1);
-        switch (opcion_valida)
-        {
+
+        switch (opcion_valida){
             case 1:
                 recepcionDePedidos();
                 reporte();
@@ -211,8 +204,8 @@ int main()
             case 5:
                 break;
             default:
-                cerr << "\033[31m" << "Opcion invalida" << "\033[0m" << endl;
                 break;
         }
-}
+// Nota: La opción 5 cortará el bucle automáticamente según la lógica del bucle while que lo contiene.
+    }
 }
