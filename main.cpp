@@ -159,6 +159,8 @@ int talleresVendidos()
 
 int main()
 {
+    int opcion_valida = 0;
+    
     map1[1] = 100;
     map1[2] = 100;
     map1[3] = 7;
@@ -169,7 +171,7 @@ int main()
     map2["C"] = 0;
 
 
-    while (true) {
+    while (opcion_valida != 5) {
         aviso();
 
         cout << "\tMenu" << endl;
@@ -184,25 +186,33 @@ int main()
             cout << "Ingrese una opcion: "; cin >> opcion;
             opcion = validarNumPosi(opcion);
             opcion = validarEntero(opcion);
-        } while (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5);
-        
-        if (opcion == 1) {
-            recepcionDePedidos();
-            reporte();
-            continue;
-        } else if (opcion == 2) {
-            atencionDePedidos();
-            reporte();
-            continue;
-        } else if (opcion == 3) {
-            reporte();
-        } else if (opcion == 4) {
-            talleresVendidos();
-        } else if (opcion == 5) {
-            break; 
-        } else {
-            cerr << "\033[31m" << "Opcion invalida" << "\033[0m" << endl;
-            continue;
+            opcion_valida = int(opcion);
+            if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5) {
+                opcion = -1;
+                cerr << "\033[31m" << "Opcion invalida" << "\033[0m" << endl;
+            }
+        } while (opcion == -1);
+        switch (opcion_valida)
+        {
+            case 1:
+                recepcionDePedidos();
+                reporte();
+                break;
+            case 2:
+                atencionDePedidos();
+                reporte();
+                break;
+            case 3:
+                reporte();
+                break;
+            case 4:
+                talleresVendidos();
+                break;
+            case 5:
+                break;
+            default:
+                cerr << "\033[31m" << "Opcion invalida" << "\033[0m" << endl;
+                break;
         }
 }
 }
