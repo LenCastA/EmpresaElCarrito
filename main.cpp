@@ -11,7 +11,7 @@ vector<string> talleres;
 
 int recepcionDePedidos()
 {
-    cout << "-----------------------------------" << endl;
+    cout << "-----------------------------------_" << endl;
     do{
         cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePedido;
         cantidadDePedido = validarNumPosi(cantidadDePedido);
