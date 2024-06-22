@@ -62,24 +62,20 @@ void guardarDatosArray(const vector<string>& datos, const string& nombreArchivo)
     }
 }
 
-float validarEnteroPosi(float n){
+int validarEnteroPosi(int n){
     if(cin.fail()){
         msgError("Error: Tiene que colocar un valor correcto.");
         cin.clear();  
         cin.ignore(1024, '\n');
         return -1;
-    } else if (cin.peek() != '\n' && cin.peek() != '.') {
+    } else if (cin.peek() != '\n') {
         msgError("Error: Caracter no numerico encontrado despues del primer entero.");
         cin.ignore(1024, '\n');
         return -1;
 	} else if (n <= 0){
         msgError("Error: El numero debe ser mayor que 0.");
         return -1;
-    } else if (n != floor(n)){
-        msgError("Error: El numero debe ser entero.");
-        cin.clear();
-        cin.ignore(1024, '\n');
-        return -1;
+    } 
     } else {
         return n;
     }
