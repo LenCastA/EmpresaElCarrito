@@ -75,11 +75,11 @@ int validarEnteroPosi(int n){
 	} else if (n <= 0){
         msgError("Error: El numero debe ser mayor que 0.");
         return -1;
-    } 
     } else {
         return n;
     }
 }
+
 
 // Funcion para validar que la entrada sea un string alfabetico
 string validarString(string entrada) {
