@@ -1,5 +1,4 @@
-#include "validaciones.cpp"
-#include <map>
+#include "functionsImportant.cpp"
 #include <vector>
 #include <algorithm>
 
@@ -76,6 +75,9 @@ int recepcionDePedidos()
     map1[tipoDePieza] += cantidadDePedido;
     map2[tipoDeProveedor] += cantidadDePedido;
 
+    guardarDatosMap(map1, "inventario.txt");
+    guardarDatosMap(map2, "proveedores.txt");
+
     cout << "-----------------------------------" << endl;
     cout << "\tReporte" << endl;
     cout << "Tipo de pieza: " << tipoDePieza << endl;
@@ -108,12 +110,15 @@ int atencionDePedidos()
     do {
         cout << "Ingrese el nombre del taller: ";
         getline(cin, nombreDelTaller);
-        nombreDelTaller = validarStringAlfabetico(nombreDelTaller);
+        nombreDelTaller = validarString(nombreDelTaller);
     } while(nombreDelTaller == "");
 
     if (find(talleres.begin(), talleres.end(), nombreDelTaller) == talleres.end()) {
         talleres.push_back(nombreDelTaller);
     }
+
+    guardarDatosMap(map1, "inventario.txt");
+    guardarDatosArray(talleres, "talleres.txt");
 
     cout << "-----------------------------------" << endl;
     cout << "\tReporte" << endl;
@@ -155,15 +160,10 @@ int talleresVendidos()
 int main()
 {
     int opcion_valida = 0;
-    
-    map1[1] = 100;
-    map1[2] = 100;
-    map1[3] = 7;
-    map1[4] = 6;
-    map1[5] = 100;
-    map2["A"] = 0;
-    map2["B"] = 0;
-    map2["C"] = 0;
+
+    leerDatosMap(map1, "inventario.txt");
+    leerDatosMap(map2, "proveedores.txt");
+    leerDatosArray(talleres, "talleres.txt");
 
     while (opcion_valida != 5) {
         aviso();
