@@ -177,8 +177,7 @@ int main()
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;
-            opcion = validarEnteroPosi(opcion);
-            opcion_valida = int(opcion);
+            opcion_valida = validarEnteroPosi(opcion);
             if (opcion_valida > 5) {
                 opcion = -1;
                 msgError("Opcion invalida");
