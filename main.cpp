@@ -1,7 +1,7 @@
 #include "functionsImportant.cpp"
 #include <algorithm>
 
-float cantidadDePedido, tipoDePieza, opcion;
+float cantidadDePedido, tipoDePieza;
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;
 map<string, int> map2;
@@ -158,13 +158,13 @@ int talleresVendidos()
 
 int main()
 {
-    int opcion_valida = 0;
+    int opcion = 0;
 
     leerDatosMap(map1, "inventario.txt");
     leerDatosMap(map2, "proveedores.txt");
     leerDatosArray(talleres, "talleres.txt");
 
-    while (opcion_valida != 5) {
+    while (opcion != 5) {
         aviso();
 
         cout << "\tMenu" << endl;
@@ -177,14 +177,14 @@ int main()
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;
-            opcion_valida = validarEnteroPosi(opcion);
-            if (opcion_valida > 5) {
+            opcion = validarEnteroPosi(opcion);
+            if (opcion > 5) {
                 opcion = -1;
                 msgError("Opcion invalida");
             }
         } while (opcion == -1);
 
-        switch (opcion_valida){
+        switch (opcion){
             case 1:
                 recepcionDePedidos();
                 reporte();
