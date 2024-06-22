@@ -1,5 +1,4 @@
 #include "functionsImportant.cpp"
-#include <vector>
 #include <algorithm>
 
 float cantidadDePedido, tipoDePieza, opcion;
