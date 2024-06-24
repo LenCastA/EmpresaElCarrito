@@ -5,6 +5,7 @@ int main()
     int cod_volver; //inicializando una variable para retroceder al menu
     int opcion = 0; //inicializando opcion del menu
     int num_opciones = 5: //declara numero de opciones del menu
+    int minPiezasPedido = 50, maxPiezasPedido = 100;
 
     //variables persistentes (talleres, proveedores, inventario)
     map<int, int> map1;
@@ -39,7 +40,7 @@ int main()
 
         switch (opcion){
             case 1:
-                cod_volver = recepcionDePedidos(map1, map2); //si todo funciona bien cod_volver = 0
+                cod_volver = recepcionDePedidos(map1, map2, minPiezasPedido, maxPiezasPedido); //si todo funciona bien cod_volver = 0
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }
