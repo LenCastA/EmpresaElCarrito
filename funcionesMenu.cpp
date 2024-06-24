@@ -93,8 +93,8 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     int cantidadDePiezas = obtenerCantidadDePiezas();
 
     if (map1[tipoDePieza] < cantidadDePiezas) {
-        msgError("No hay suficiente stock para completar el pedido");
-        return 0;
+        msgError("No hay stock para completar el pedido");
+        cantidadDePiezas = obtenerCantidadDePiezas();
     } else {
         map1[tipoDePieza] -= cantidadDePiezas;
     }
