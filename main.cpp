@@ -1,4 +1,4 @@
-#include "functionsImportant.cpp"
+#include "funcionesMenu.cpp"
 #include <algorithm>
 //Declaracion de variables
 float cantidadDePiezas, tipoDePieza;
