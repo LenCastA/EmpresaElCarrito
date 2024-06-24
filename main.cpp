@@ -1,7 +1,6 @@
 #include "funcionesMenu.cpp"
 #include <algorithm>
 //Declaracion de variables
-float cantidadDePiezas, tipoDePieza;
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;
 map<string, int> map2;
@@ -26,16 +25,7 @@ int recepcionDePedidos()
     cout << "-----------------------------------" << endl;
     cout << "\tRecepcion de pedidos" << endl;
 
-    do{
-        cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePiezas;
-        cantidadDePiezas = validarEnteroPosi(cantidadDePiezas);
-
-        if (cantidadDePiezas < 50 || cantidadDePiezas > 100) {
-            msgError("Cantidad de pedido invalida");
-            cantidadDePiezas = -1;
-        }
-    } while(cantidadDePiezas == -1);
-
+    int cantidadDePiezas = obtenerCantidadDePiezas();
     int tipoDePieza = obtenerTipoDePieza();
 
     do{

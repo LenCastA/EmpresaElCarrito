@@ -1,6 +1,5 @@
 #include "functionsImportant.cpp"
 
-
 int obtenerTipoDePieza()
 {
     int tipoDePieza;
