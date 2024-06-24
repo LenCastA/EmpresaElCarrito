@@ -8,12 +8,12 @@
 #include <vector>
 using namespace std;
 
-string msgError(string msg)
+void msgError(string msg)
 {
     cerr << "\033[31m" << msg << "\033[0m" << endl;
 }
 
-int msgMenu()
+void msgMenu()
 {
     cerr << "\033[32m" << "Regresando al menu..." << "\033[0m" << endl;
 }

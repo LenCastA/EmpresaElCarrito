@@ -137,7 +137,7 @@ int atencionDePedidos(std::map<int, int>& inventario, std::map<string, int>& pro
 
     do {
         cantidadDePiezas = obtenerCantidadDePiezas();
-        if (cantidadDePiezas == 0) {
+        if (cantidadDePiezas == -2) {
             msgMenu();
             return -2;
         } else {
