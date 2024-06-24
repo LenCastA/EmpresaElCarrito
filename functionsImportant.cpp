@@ -62,7 +62,7 @@ void guardarDatosArray(const vector<string>& datos, const string& nombreArchivo)
     }
 }
 
-int validarEnteroPosi(int n){
+int validarNatural(int n, bool accept_0 = false){
     if(cin.fail()){
         msgError("Error: Tiene que colocar un valor correcto.");
         cin.clear();  
@@ -72,9 +72,17 @@ int validarEnteroPosi(int n){
         msgError("Error: Caracter no numerico encontrado despues del primer entero.");
         cin.ignore(1024, '\n');
         return -1;
-	} else if (n <= 0){
-        msgError("Error: El numero debe ser mayor que 0.");
+	} else if (n < 0){
+        msgError("Error: El numero no puede ser negativo.");
         return -1;
+    } else if (n == 0) {
+        if (accept_0)
+        {
+            return 0;
+        }else {
+            msgError("Error: El numero debe ser mayor que 0.");
+            return -1;
+        }
     } else {
         return n;
     }

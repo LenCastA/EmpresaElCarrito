@@ -2,6 +2,7 @@
 
 int main()
 {
+    int cod_volver;
     int opcion = 0;
     map<int, int> map1;
     map<string, int> map2;
@@ -24,7 +25,7 @@ int main()
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;
-            opcion = validarEnteroPosi(opcion);
+            opcion = validarNatural(opcion);
             if (opcion > 5) {
                 opcion = -1;
                 msgError("Opcion invalida");
@@ -33,11 +34,17 @@ int main()
 
         switch (opcion){
             case 1:
-                recepcionDePedidos(map1, map2);
-                reporte();
+                cod_volver = recepcionDePedidos(map1, map2);
+                if (cod_volver == -2) {
+                    break;
+                }
+                reporte(map1, map2);
                 break;
             case 2:
-                atencionDePedidos(map1, map2, talleres);
+                cod_volver = atencionDePedidos(map1, map2, talleres);
+                if (cod_volver == -2) {
+                    break;
+                }
                 reporte(map1, map2);
                 break;
             case 3:
@@ -45,8 +52,6 @@ int main()
                 break;
             case 4:
                 talleresVendidos(talleres);
-                break;
-            case 5:
                 break;
             default:
                 break;

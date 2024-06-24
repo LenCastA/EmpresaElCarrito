@@ -6,7 +6,7 @@ int obtenerTipoDePieza()
     int tipoDePieza;
     do {
         cout << "Ingrese el tipo de pieza: "; cin >> tipoDePieza;
-        tipoDePieza = validarEnteroPosi(tipoDePieza); //validamos que tipoDePieza sea un numero entero
+        tipoDePieza = validarNatural(tipoDePieza); //validamos que tipoDePieza sea un numero entero
 
         if (tipoDePieza > 5) { //validamos que tipoDePieza sea una de las 5 opciones posibles
             msgError("Tipo de pieza invalido");
@@ -21,9 +21,11 @@ int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
     do {
-        cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePiezas;
-        cantidadDePiezas = validarEnteroPosi(cantidadDePiezas); //validamos que cantidadDePiezas sea un numero entero
-
+        cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; cin >> cantidadDePiezas;
+        cantidadDePiezas = validarNatural(cantidadDePiezas, true); //validamos que cantidadDePiezas sea un numero entero
+        if (cantidadDePiezas == 0) {
+            return -2;
+        }
     } while (cantidadDePiezas == -1);
     return cantidadDePiezas;
 }
@@ -69,9 +71,20 @@ int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
     cout << "-----------------------------------" << endl;
     cout << "\tRecepcion de pedidos" << endl;
 
-    string tipoDeProveedor = obtenerTipoDeProvedor();
-    int cantidadDePiezas = obtenerCantidadDePiezas();
+    int cantidadDePiezas;
+    do
+    {
+        cantidadDePiezas = obtenerCantidadDePiezas();
+        if (cantidadDePiezas == -2) {
+            return -2;
+        }
+        if (cantidadDePiezas < 50 || cantidadDePiezas > 100){
+            msgError("El pedido debe estar comprendido entre 50 y 100 piezas.");
+        }
+    } while (cantidadDePiezas < 50 || cantidadDePiezas > 100);
+
     int tipoDePieza = obtenerTipoDePieza();
+    string tipoDeProveedor = obtenerTipoDeProvedor();
 
     map1[tipoDePieza] += cantidadDePiezas;
     map2[tipoDeProveedor] += cantidadDePiezas;
@@ -85,6 +98,8 @@ int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
     cout << "Tipo de proveedor: " << tipoDeProveedor << endl;
     cout << "Cantidad del pedido recibido: " << cantidadDePiezas << endl;
     cout << "-----------------------------------" << endl;
+    
+    return 0;
 }
 
 int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vector<string>& talleres)
@@ -92,9 +107,11 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     cout << "-----------------------------------" << endl;
     cout << "\tAtencion de pedidos" << endl;
 
-    int tipoDePieza = obtenerTipoDePieza();
-    
     int cantidadDePiezas = obtenerCantidadDePiezas();
+    if (cantidadDePiezas == -2) {
+        return -2;
+    }
+    int tipoDePieza = obtenerTipoDePieza();
 
     if (map1[tipoDePieza] < cantidadDePiezas) {
         msgError("No hay stock para completar el pedido");
@@ -125,6 +142,8 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     cout << "Tipo de pieza: " << tipoDePieza << endl;
     cout << "Cantidad de pedido: " << cantidadDePiezas << endl;
     cout << "-----------------------------------" << endl;
+
+    return 0;
 }
 
 int reporte(std::map<int, int> map1, std::map<string, int> map2)
