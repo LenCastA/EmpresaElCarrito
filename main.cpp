@@ -7,22 +7,6 @@ map<int, int> map1;
 map<string, int> map2;
 vector<string> talleres;
 
-int obtenerTipoDePieza()
-{
-    int tipoDePieza;
-    do {
-        cout << "Ingrese el tipo de pieza: "; cin >> tipoDePieza;
-        tipoDePieza = validarEnteroPosi(tipoDePieza); //validamos que tipoDePieza sea un numero entero
-
-        if (tipoDePieza > 5) { //validamos que tipoDePieza sea una de las 5 opciones posibles
-            msgError("Tipo de pieza invalido");
-            tipoDePieza = -1;
-        }
-
-    } while(tipoDePieza == -1);
-    return tipoDePieza;
-}
-
 void PrintMap1(std::map<int, int>& m)
 {
     for (auto& item : m) {
@@ -42,16 +26,7 @@ int recepcionDePedidos()
     cout << "-----------------------------------" << endl;
     cout << "\tRecepcion de pedidos" << endl;
 
-    do{
-        cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePiezas;
-        cantidadDePiezas = validarEnteroPosi(cantidadDePiezas);
-
-        if (cantidadDePiezas < 50 || cantidadDePiezas > 100) {
-            msgError("Cantidad de pedido invalida");
-            cantidadDePiezas = -1;
-        }
-    } while(cantidadDePiezas == -1);
-
+    int cantidadDePiezas = obtenerCantidadDePiezas();
     int tipoDePieza = obtenerTipoDePieza();
 
     do{
@@ -92,11 +67,7 @@ int atencionDePedidos()
     cout << "\tAtencion de pedidos" << endl;
 
     int tipoDePieza = obtenerTipoDePieza();
-    
-    do {
-        cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePiezas;
-        cantidadDePiezas = validarEnteroPosi(cantidadDePiezas);
-    } while (cantidadDePiezas == -1);
+    int cantidadDePiezas = obtenerCantidadDePiezas();
 
     if (map1[tipoDePieza] < cantidadDePiezas) {
         msgError("No hay suficiente stock para completar el pedido");

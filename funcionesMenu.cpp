@@ -16,3 +16,15 @@ int obtenerTipoDePieza()
     } while(tipoDePieza == -1);
     return tipoDePieza;
 }
+int obtenerCantidadDePiezas() {
+    int cantidadDePiezas;
+    do{
+            cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePiezas;
+            cantidadDePiezas = validarEnteroPosi(cantidadDePiezas);
+
+            if (cantidadDePiezas < 50 || cantidadDePiezas > 100) {
+                msgError("Cantidad de pedido invalida");
+                cantidadDePiezas = -1;
+            }
+    } while(cantidadDePiezas == -1);
+}
