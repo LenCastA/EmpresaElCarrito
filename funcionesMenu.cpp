@@ -5,7 +5,7 @@ int obtenerTipoDePieza()
 {
     int tipoDePieza;
     do {
-        cout << "Ingrese el tipo de pieza: "; cin >> tipoDePieza;
+        std::cout << "Ingrese el tipo de pieza: "; std::cin >> tipoDePieza;
         tipoDePieza = validarNatural(tipoDePieza); //validamos que tipoDePieza sea un numero entero
 
         if (tipoDePieza > 5) { //validamos que tipoDePieza sea una de las 5 opciones posibles
@@ -21,7 +21,7 @@ int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
     do {
-        cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; cin >> cantidadDePiezas;
+        std::cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; std::cin >> cantidadDePiezas;
         cantidadDePiezas = validarNatural(cantidadDePiezas, true); //validamos que cantidadDePiezas sea un numero entero
         if (cantidadDePiezas == 0) {
             return -2;
@@ -30,10 +30,11 @@ int obtenerCantidadDePiezas()
     return cantidadDePiezas;
 }
 
-string obtenerTipoDeProvedor(){
+string obtenerTipoDeProvedor()
+{
     string tipoDeProveedor;
     do{
-        cout << "Ingrese el tipo de proveedor (A, B o C): "; cin >> tipoDeProveedor;
+        std::cout << "Ingrese el tipo de proveedor (A, B o C): "; std::cin >> tipoDeProveedor;
 
         if (tipoDeProveedor.length() > 1){
             msgError("Ingrese un solo caracter");
@@ -52,24 +53,25 @@ string obtenerTipoDeProvedor(){
 
     return tipoDeProveedor;
 }
+
 void PrintMap1(std::map<int, int>& m)
 {
     for (auto& item : m) {
-        cout << item.first << ":" << item.second << " || ";
+        std::cout << item.first << ":" << item.second << " || ";
     }
 }
 
 void PrintMap2(std::map<string, int>& m)
 {
     for (auto& item : m) {
-        cout << item.first << ":" << item.second << " || ";
+        std::cout << item.first << ":" << item.second << " || ";
     }
 }
 
 int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
 {
-    cout << "-----------------------------------" << endl;
-    cout << "\tRecepcion de pedidos" << endl;
+    std::cout << "-----------------------------------" << endl;
+    std::cout << "\tRecepcion de pedidos" << endl;
 
     int cantidadDePiezas;
     do
@@ -92,20 +94,20 @@ int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
     guardarDatosMap(map1, "inventario.txt");
     guardarDatosMap(map2, "proveedores.txt");
 
-    cout << "-----------------------------------" << endl;
-    cout << "\tReporte" << endl;
-    cout << "Tipo de pieza: " << tipoDePieza << endl;
-    cout << "Tipo de proveedor: " << tipoDeProveedor << endl;
-    cout << "Cantidad del pedido recibido: " << cantidadDePiezas << endl;
-    cout << "-----------------------------------" << endl;
+    std::cout << "-----------------------------------" << endl;
+    std::cout << "\tReporte" << endl;
+    std::cout << "Tipo de pieza: " << tipoDePieza << endl;
+    std::cout << "Tipo de proveedor: " << tipoDeProveedor << endl;
+    std::cout << "Cantidad del pedido recibido: " << cantidadDePiezas << endl;
+    std::cout << "-----------------------------------" << endl;
     
     return 0;
 }
 
 int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vector<string>& talleres)
 {
-    cout << "-----------------------------------" << endl;
-    cout << "\tAtencion de pedidos" << endl;
+    std::cout << "-----------------------------------" << endl;
+    std::cout << "\tAtencion de pedidos" << endl;
 
     int cantidadDePiezas = obtenerCantidadDePiezas();
     if (cantidadDePiezas == -2) {
@@ -113,19 +115,41 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     }
     int tipoDePieza = obtenerTipoDePieza();
 
-    if (map1[tipoDePieza] < cantidadDePiezas) {
-        msgError("No hay stock para completar el pedido");
+    do {
+        string opcion;
         cantidadDePiezas = obtenerCantidadDePiezas();
-    } else {
-        map1[tipoDePieza] -= cantidadDePiezas;
-    }
+        if (map1[tipoDePieza] < cantidadDePiezas) {
+            msgError("No hay suficientes piezas en el inventario");
+            std::cout << "Cantidad de piezas en el inventario: " << map1[tipoDePieza] << endl;
+            do {
+                std::cout << "Desea continuar con el pedido? (s/n): "; std::cin >> opcion;
+                if (opcion != "s" && opcion != "n") {
+                    msgError("Opcion invalida");
+                    continue;
+                }
+                if (opcion.length() > 1) {
+                    msgError("Ingrese un solo caracter");
+                    continue;
+                } else {
+                    opcion = tolower(opcion[0]);
+                    if (opcion == "n") {
+                        return 0;
+                    } else if (opcion == "s") {
+                        break;
+                    }
+                }
+            } while(opcion != "S" && opcion != "N");
+        }
+    } while(map1[tipoDePieza] < cantidadDePiezas);
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    map1[tipoDePieza] -= cantidadDePiezas;
+
+    std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     string nombreDelTaller;
     do {
-        cout << "Ingrese el nombre del taller: ";
-        getline(cin, nombreDelTaller);
+        std::cout << "Ingrese el nombre del taller: ";
+        getline(std::cin, nombreDelTaller);
         nombreDelTaller = validarString(nombreDelTaller);
     } while(nombreDelTaller == "");
 
@@ -136,23 +160,23 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     guardarDatosMap(map1, "inventario.txt");
     guardarDatosArray(talleres, "talleres.txt");
 
-    cout << "-----------------------------------" << endl;
-    cout << "\tReporte" << endl;
-    cout << "Nombre del taller: " << nombreDelTaller << endl;
-    cout << "Tipo de pieza: " << tipoDePieza << endl;
-    cout << "Cantidad de pedido: " << cantidadDePiezas << endl;
-    cout << "-----------------------------------" << endl;
+    std::cout << "-----------------------------------" << endl;
+    std::cout << "\tReporte" << endl;
+    std::cout << "Nombre del taller: " << nombreDelTaller << endl;
+    std::cout << "Tipo de pieza: " << tipoDePieza << endl;
+    std::cout << "Cantidad de pedido: " << cantidadDePiezas << endl;
+    std::cout << "-----------------------------------" << endl;
 
     return 0;
 }
 
 int reporte(std::map<int, int> map1, std::map<string, int> map2)
 {
-    cout << "-----------------------------------" << endl;
-    cout << "\tInventario" << endl;
-    cout << "Piezas: "; PrintMap1(map1); cout << endl;
-    cout << "Proveedeores: "; PrintMap2(map2); cout << endl;
-    cout << "-----------------------------------" << endl;
+    std::cout << "-----------------------------------" << endl;
+    std::cout << "\tInventario" << endl;
+    std::cout << "Piezas: "; PrintMap1(map1); std::cout << endl;
+    std::cout << "Proveedeores: "; PrintMap2(map2); std::cout << endl;
+    std::cout << "-----------------------------------" << endl;
 }
 
 int aviso(std::map<int, int> map1)
@@ -167,10 +191,10 @@ int aviso(std::map<int, int> map1)
 
 int talleresVendidos(vector<string> talleres)
 {
-    cout << "-----------------------------------" << endl;
-    cout << "\tTalleres vendidos" << endl;
+    std::cout << "-----------------------------------" << endl;
+    std::cout << "\tTalleres vendidos" << endl;
     for (int i = 0; i < talleres.size(); i++) {
-        cout << talleres[i] << endl;
+        std::cout << talleres[i] << endl;
     }
-    cout << "-----------------------------------" << endl;
+    std::cout << "-----------------------------------" << endl;
 }
