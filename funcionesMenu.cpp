@@ -66,14 +66,15 @@ void PrintMap2(std::map<string, int>& m)
 
 int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
 {
+    //Bienvenida al usuario
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tRecepcion de pedidos" << endl;
 
-    int cantidadDePiezas;
+    int cantidadDePiezas; //incializando cantidad de piezas del pedido
     do
     {
         cantidadDePiezas = obtenerCantidadDePiezas();
-        if (cantidadDePiezas == -2) {
+        if (cantidadDePiezas == -2) { //-2 es codigo para volver a la accion anterior
             return -2;
         }
         if (cantidadDePiezas < 50 || cantidadDePiezas > 100){
