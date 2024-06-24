@@ -20,9 +20,13 @@ int obtenerTipoDePieza()
 int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
-
-    std::cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; std::cin >> cantidadDePiezas;
-    cantidadDePiezas = validarNatural(cantidadDePiezas);
+    do{
+        cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; cin >> cantidadDePiezas;
+        cantidadDePiezas = validarNatural(cantidadDePiezas, true); //validamos que cantidadDePiezas sea un numero entero
+        if (cantidadDePiezas == 0) {
+            return -2;
+        }
+    } while (cantidadDePiezas == -1);
     return cantidadDePiezas;
 }
 
@@ -108,9 +112,9 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
 
     int tipoDePieza = obtenerTipoDePieza();
     int cantidadDePiezas;
+    string opcion;
 
     do {
-        string opcion;
         cantidadDePiezas = obtenerCantidadDePiezas();
         if (map1[tipoDePieza] < cantidadDePiezas) {
             msgError("No hay suficientes piezas en el inventario");

@@ -4,7 +4,7 @@ int main()
 {
     int cod_volver; //inicializando una variable para retroceder al menu
     int opcion = 0; //inicializando opcion del menu
-    int num_opciones = 5: //declara numero de opciones del menu
+    int num_opciones = 5; //declara numero de opciones del menu
     int minPiezasPedido = 50, maxPiezasPedido = 100;
 
     //variables persistentes (talleres, proveedores, inventario)
@@ -18,8 +18,7 @@ int main()
     leerDatosArray(talleres, "talleres.txt");
 
     while (opcion != num_opciones) { //opcion final termina el programa
-        aviso(map1); //avisar sobre faltas en el inventario
--        
+        aviso(map1); //avisar sobre faltas en el inventario       
         //Imprimiendo menu
         cout << "\tMenu" << endl;
         cout << "1. Recepcion de pedidos" << endl;
@@ -42,7 +41,7 @@ int main()
 
         switch (opcion){
             case 1:
-                cod_volver = recepcionDePedidos(map1, map2, minPiezasPedido, maxPiezasPedido); //si todo funciona bien cod_volver = 0
+                recepcionDePedidos(map1, map2); //si todo funciona bien cod_volver = 0
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }
