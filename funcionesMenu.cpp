@@ -112,7 +112,6 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
                     }
                 }
             } while(opcion != "S" && opcion != "N");
-
         }
     } while(map1[tipoDePieza] < cantidadDePiezas);
 
