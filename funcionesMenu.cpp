@@ -1,4 +1,5 @@
 #include "functionsImportant.cpp"
+#include <algorithm>
 
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;

@@ -1,5 +1,4 @@
 #include "funcionesMenu.cpp"
-#include <algorithm>
 
 int main()
 {
