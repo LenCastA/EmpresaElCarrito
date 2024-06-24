@@ -25,7 +25,8 @@ int obtenerCantidadDePiezas()
     return cantidadDePiezas;
 }
 
-string obtenerTipoDeProvedor(){
+string obtenerTipoDeProvedor()
+{
     string tipoDeProveedor;
     do{
         cout << "Ingrese el tipo de proveedor (A, B o C): "; cin >> tipoDeProveedor;
@@ -47,6 +48,7 @@ string obtenerTipoDeProvedor(){
 
     return tipoDeProveedor;
 }
+
 void PrintMap1(std::map<int, int>& m)
 {
     for (auto& item : m) {
