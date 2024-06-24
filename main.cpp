@@ -2,19 +2,24 @@
 
 int main()
 {
-    int cod_volver;
-    int opcion = 0;
+    int cod_volver; //inicializando una variable para retroceder al menu
+    int opcion = 0; //inicializando opcion del menu
+    int num_opciones = 5: //declara numero de opciones del menu
+
+    //variables persistentes (talleres, proveedores, inventario)
     map<int, int> map1;
     map<string, int> map2;
     vector<string> talleres;
-
+    
+    //asignando valores a las variables persistentes
     leerDatosMap(map1, "inventario.txt");
     leerDatosMap(map2, "proveedores.txt");
     leerDatosArray(talleres, "talleres.txt");
 
-    while (opcion != 5) {
-        aviso(map1);
-
+    while (opcion != num_opciones) { //opcion final termina el programa
+        aviso(map1); //avisar sobre faltas en el inventario
+-        
+        //Imprimiendo menu
         cout << "\tMenu" << endl;
         cout << "1. Recepcion de pedidos" << endl;
         cout << "2. Atencion de pedidos" << endl;
@@ -25,17 +30,17 @@ int main()
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;
-            opcion = validarNatural(opcion);
-            if (opcion > 5) {
-                opcion = -1;
+            opcion = validarNatural(opcion); //validando que opcion sea entero positivo
+            if (opcion > num_opciones) {
+                opcion = -1; // -1 utilizamos como codigo de error de datos
                 msgError("Opcion invalida");
             }
-        } while (opcion == -1);
+        } while (opcion == -1); // se repite hasta que el codigo de error no exista
 
         switch (opcion){
             case 1:
-                cod_volver = recepcionDePedidos(map1, map2);
-                if (cod_volver == -2) {
+                cod_volver = recepcionDePedidos(map1, map2); //si todo funciona bien cod_volver = 0
+                if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }
                 reporte(map1, map2);
@@ -53,6 +58,7 @@ int main()
             case 4:
                 talleresVendidos(talleres);
                 break;
+            //se debe añadir la funcionalidad de cada opcion del menu(la ultima, opcion de salida, queda por default)
             default:
                 break;
         }
