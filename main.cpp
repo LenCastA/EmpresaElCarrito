@@ -1,21 +1,19 @@
 #include "funcionesMenu.cpp"
 #include <algorithm>
-//Declaracion de variables
-string tipoDeProveedor, nombreDelTaller;
-map<int, int> map1;
-map<string, int> map2;
-vector<string> talleres;
 
 int main()
 {
     int opcion = 0;
+    map<int, int> map1;
+    map<string, int> map2;
+    vector<string> talleres;
 
     leerDatosMap(map1, "inventario.txt");
     leerDatosMap(map2, "proveedores.txt");
     leerDatosArray(talleres, "talleres.txt");
 
     while (opcion != 5) {
-        aviso();
+        aviso(map1);
 
         cout << "\tMenu" << endl;
         cout << "1. Recepcion de pedidos" << endl;
@@ -36,18 +34,18 @@ int main()
 
         switch (opcion){
             case 1:
-                recepcionDePedidos();
+                recepcionDePedidos(map1, map2);
                 reporte();
                 break;
             case 2:
-                atencionDePedidos();
-                reporte();
+                atencionDePedidos(map1, map2, talleres);
+                reporte(map1, map2);
                 break;
             case 3:
-                reporte();
+                reporte(map1, map2);
                 break;
             case 4:
-                talleresVendidos();
+                talleresVendidos(talleres);
                 break;
             case 5:
                 break;

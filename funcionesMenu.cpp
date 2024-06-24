@@ -1,4 +1,5 @@
 #include "functionsImportant.cpp"
+#include <algorithm>
 
 int obtenerTipoDePieza()
 {
@@ -41,8 +42,9 @@ void PrintMap2(std::map<string, int>& m)
     }
 }
 
-int recepcionDePedidos()
+int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
 {
+    string tipoDeProveedor;
     cout << "-----------------------------------" << endl;
     cout << "\tRecepcion de pedidos" << endl;
 
@@ -81,7 +83,7 @@ int recepcionDePedidos()
     cout << "-----------------------------------" << endl;
 }
 
-int atencionDePedidos()
+int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vector<string>& talleres)
 {
     cout << "-----------------------------------" << endl;
     cout << "\tAtencion de pedidos" << endl;
@@ -99,6 +101,7 @@ int atencionDePedidos()
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+    string nombreDelTaller;
     do {
         cout << "Ingrese el nombre del taller: ";
         getline(cin, nombreDelTaller);
@@ -120,7 +123,7 @@ int atencionDePedidos()
     cout << "-----------------------------------" << endl;
 }
 
-int reporte()
+int reporte(std::map<int, int> map1, std::map<string, int> map2)
 {
     cout << "-----------------------------------" << endl;
     cout << "\tInventario" << endl;
@@ -129,7 +132,7 @@ int reporte()
     cout << "-----------------------------------" << endl;
 }
 
-int aviso()
+int aviso(std::map<int, int> map1)
 {
     for (int i = 1; i < 6; i++) {
         if (map1[i] < 8) {
@@ -139,7 +142,7 @@ int aviso()
     
 }
 
-int talleresVendidos()
+int talleresVendidos(vector<string> talleres)
 {
     cout << "-----------------------------------" << endl;
     cout << "\tTalleres vendidos" << endl;
