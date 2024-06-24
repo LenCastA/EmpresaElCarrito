@@ -1,7 +1,7 @@
 #include "functionsImportant.cpp"
 #include <algorithm>
 
-float cantidadDePedido, tipoDePieza;
+float cantidadDePieza, tipoDePieza;
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;
 map<string, int> map2;
@@ -42,14 +42,14 @@ int recepcionDePedidos()
     cout << "\tRecepcion de pedidos" << endl;
 
     do{
-        cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePedido;
-        cantidadDePedido = validarEnteroPosi(cantidadDePedido);
+        cout << "Ingrese la cantidad del pedido: "; cin >> cantidadDePieza;
+        cantidadDePieza = validarEnteroPosi(cantidadDePieza);
 
-        if (cantidadDePedido < 50 || cantidadDePedido > 100) {
+        if (cantidadDePieza < 50 || cantidadDePieza > 100) {
             msgError("Cantidad de pedido invalida");
-            cantidadDePedido = -1;
+            cantidadDePieza = -1;
         }
-    } while(cantidadDePedido == -1);
+    } while(cantidadDePieza == -1);
 
     tipoDePieza = validarTipoDePieza(tipoDePieza);
 
@@ -71,8 +71,8 @@ int recepcionDePedidos()
 
     } while(tipoDeProveedor == "");
 
-    map1[tipoDePieza] += cantidadDePedido;
-    map2[tipoDeProveedor] += cantidadDePedido;
+    map1[tipoDePieza] += cantidadDePieza;
+    map2[tipoDeProveedor] += cantidadDePieza;
 
     guardarDatosMap(map1, "inventario.txt");
     guardarDatosMap(map2, "proveedores.txt");
@@ -81,7 +81,7 @@ int recepcionDePedidos()
     cout << "\tReporte" << endl;
     cout << "Tipo de pieza: " << tipoDePieza << endl;
     cout << "Tipo de proveedor: " << tipoDeProveedor << endl;
-    cout << "Cantidad del pedido recibido: " << cantidadDePedido << endl;
+    cout << "Cantidad del pedido recibido: " << cantidadDePieza << endl;
     cout << "-----------------------------------" << endl;
 }
 
@@ -93,15 +93,15 @@ int atencionDePedidos()
     tipoDePieza = validarTipoDePieza(tipoDePieza);
     
     do {
-        cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePedido;
-        cantidadDePedido = validarEnteroPosi(cantidadDePedido);
-    } while (cantidadDePedido == -1);
+        cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePieza;
+        cantidadDePieza = validarEnteroPosi(cantidadDePieza);
+    } while (cantidadDePieza == -1);
 
-    if (map1[tipoDePieza] < cantidadDePedido) {
+    if (map1[tipoDePieza] < cantidadDePieza) {
         msgError("No hay suficiente stock para completar el pedido");
         return 0;
     } else {
-        map1[tipoDePieza] -= cantidadDePedido;
+        map1[tipoDePieza] -= cantidadDePieza;
     }
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -123,7 +123,7 @@ int atencionDePedidos()
     cout << "\tReporte" << endl;
     cout << "Nombre del taller: " << nombreDelTaller << endl;
     cout << "Tipo de pieza: " << tipoDePieza << endl;
-    cout << "Cantidad de pedido: " << cantidadDePedido << endl;
+    cout << "Cantidad de pedido: " << cantidadDePieza << endl;
     cout << "-----------------------------------" << endl;
 }
 
