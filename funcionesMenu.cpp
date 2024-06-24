@@ -16,3 +16,14 @@ int obtenerTipoDePieza()
     } while(tipoDePieza == -1);
     return tipoDePieza;
 }
+
+int obtenerCantidadDePiezas()
+{
+    int cantidadDePiezas;
+    do {
+        cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePiezas;
+        cantidadDePiezas = validarEnteroPosi(cantidadDePiezas); //validamos que cantidadDePiezas sea un numero entero
+
+    } while (cantidadDePiezas == -1);
+    return cantidadDePiezas;
+}
