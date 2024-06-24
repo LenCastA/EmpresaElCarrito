@@ -8,17 +8,17 @@ int main()
     int minPiezasPedido = 50, maxPiezasPedido = 100;
 
     //variables persistentes (talleres, proveedores, inventario)
-    map<int, int> map1;
+    map<int, int> inventario;
     map<string, int> map2;
     vector<string> talleres;
     
     //asignando valores a las variables persistentes
-    leerDatosMap(map1, "inventario.txt");
+    leerDatosMap(inventario, "inventario.txt");
     leerDatosMap(map2, "proveedores.txt");
     leerDatosArray(talleres, "talleres.txt");
 
     while (opcion != num_opciones) { //opcion final termina el programa
-        aviso(map1); //avisar sobre faltas en el inventario       
+        aviso(inventario); //avisar sobre faltas en el inventario       
         //Imprimiendo menu
         cout << "\tMenu" << endl;
         cout << "1. Recepcion de pedidos" << endl;
@@ -41,21 +41,21 @@ int main()
 
         switch (opcion){
             case 1:
-                recepcionDePedidos(map1, map2); //si todo funciona bien cod_volver = 0
+                recepcionDePedidos(inventario, map2); //si todo funciona bien cod_volver = 0
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }
-                reporte(map1, map2);
+                reporte(inventario, map2);
                 break;
             case 2:
-                cod_volver = atencionDePedidos(map1, map2, talleres);
+                cod_volver = atencionDePedidos(inventario, map2, talleres);
                 if (cod_volver == -2) {
                     break;
                 }
-                reporte(map1, map2);
+                reporte(inventario, map2);
                 break;
             case 3:
-                reporte(map1, map2);
+                reporte(inventario, map2);
                 break;
             case 4:
                 talleresVendidos(talleres);

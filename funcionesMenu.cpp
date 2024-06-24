@@ -54,7 +54,7 @@ string obtenerTipoDeProvedor()
     return tipoDeProveedor;
 }
 
-void PrintMap1(std::map<int, int>& m)
+void Printinventario(std::map<int, int>& m)
 {
     for (auto& item : m) {
         std::cout << item.first << ":" << item.second << " || ";
@@ -68,7 +68,7 @@ void PrintMap2(std::map<string, int>& m)
     }
 }
 
-int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
+int recepcionDePedidos(std::map<int, int>& inventario, std::map<string, int>& map2)
 {
     //Bienvenida al usuario
     std::cout << "-----------------------------------" << endl;
@@ -89,10 +89,10 @@ int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
     int tipoDePieza = obtenerTipoDePieza();
     string tipoDeProveedor = obtenerTipoDeProvedor();
 
-    map1[tipoDePieza] += cantidadDePiezas;
+    inventario[tipoDePieza] += cantidadDePiezas;
     map2[tipoDeProveedor] += cantidadDePiezas;
 
-    guardarDatosMap(map1, "inventario.txt");
+    guardarDatosMap(inventario, "inventario.txt");
     guardarDatosMap(map2, "proveedores.txt");
 
     std::cout << "-----------------------------------" << endl;
@@ -105,7 +105,7 @@ int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
     return 0;
 }
 
-int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vector<string>& talleres)
+int atencionDePedidos(std::map<int, int>& inventario, std::map<string, int>& map2, vector<string>& talleres)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tAtencion de pedidos" << endl;
@@ -116,9 +116,9 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
 
     do {
         cantidadDePiezas = obtenerCantidadDePiezas();
-        if (map1[tipoDePieza] < cantidadDePiezas) {
+        if (inventario[tipoDePieza] < cantidadDePiezas) {
             msgError("No hay suficientes piezas en el inventario");
-            std::cout << "Cantidad de piezas en el inventario: " << map1[tipoDePieza] << endl;
+            std::cout << "Cantidad de piezas en el inventario: " << inventario[tipoDePieza] << endl;
             do {
                 cout << "Desea continuar con el pedido? (s/n): "; std::cin >> opcion;
                 if (opcion != "s" && opcion != "n" && opcion.length() > 1){
@@ -134,9 +134,9 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
                 }
             } while(opcion != "s" && opcion != "n");
         }
-    } while(map1[tipoDePieza] < cantidadDePiezas);
+    } while(inventario[tipoDePieza] < cantidadDePiezas);
 
-    map1[tipoDePieza] -= cantidadDePiezas;
+    inventario[tipoDePieza] -= cantidadDePiezas;
 
     std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -151,7 +151,7 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
         talleres.push_back(nombreDelTaller);
     }
 
-    guardarDatosMap(map1, "inventario.txt");
+    guardarDatosMap(inventario, "inventario.txt");
     guardarDatosArray(talleres, "talleres.txt");
 
     std::cout << "-----------------------------------" << endl;
@@ -164,19 +164,19 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     return 0;
 }
 
-int reporte(std::map<int, int> map1, std::map<string, int> map2)
+int reporte(std::map<int, int> inventario, std::map<string, int> map2)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tInventario" << endl;
-    std::cout << "Piezas: "; PrintMap1(map1); std::cout << endl;
+    std::cout << "Piezas: "; Printinventario(inventario); std::cout << endl;
     std::cout << "Proveedeores: "; PrintMap2(map2); std::cout << endl;
     std::cout << "-----------------------------------" << endl;
 }
 
-int aviso(std::map<int, int> map1)
+int aviso(std::map<int, int> inventario)
 {
     for (int i = 1; i < 6; i++) {
-        if (map1[i] < 8) {
+        if (inventario[i] < 8) {
             msgError("Es necesario reponer el stock de las piezas " + to_string(i));
         }
     }
