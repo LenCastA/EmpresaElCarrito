@@ -1,5 +1,10 @@
 #include "functionsImportant.cpp"
 
+string tipoDeProveedor, nombreDelTaller;
+map<int, int> map1;
+map<string, int> map2;
+vector<string> talleres;
+
 int obtenerTipoDePieza()
 {
     int tipoDePieza;
@@ -91,8 +96,8 @@ int atencionDePedidos()
     int cantidadDePiezas = obtenerCantidadDePiezas();
 
     if (map1[tipoDePieza] < cantidadDePiezas) {
-        msgError("No hay suficiente stock para completar el pedido");
-        return 0;
+        msgError("No hay stock para completar el pedido");
+        cantidadDePiezas = obtenerCantidadDePiezas();
     } else {
         map1[tipoDePieza] -= cantidadDePiezas;
     }

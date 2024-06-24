@@ -1,10 +1,5 @@
 #include "funcionesMenu.cpp"
 #include <algorithm>
-//Declaracion de variables
-string tipoDeProveedor, nombreDelTaller;
-map<int, int> map1;
-map<string, int> map2;
-vector<string> talleres;
 
 int main()
 {
