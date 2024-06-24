@@ -9,12 +9,12 @@ int main()
 
     //variables persistentes (talleres, proveedores, inventario)
     map<int, int> inventario;
-    map<string, int> map2;
+    map<string, int> proveedores;
     vector<string> talleres;
     
     //asignando valores a las variables persistentes
     leerDatosMap(inventario, "inventario.txt");
-    leerDatosMap(map2, "proveedores.txt");
+    leerDatosMap(proveedores, "proveedores.txt");
     leerDatosArray(talleres, "talleres.txt");
 
     while (opcion != num_opciones) { //opcion final termina el programa
@@ -41,29 +41,27 @@ int main()
 
         switch (opcion){
             case 1:
-                recepcionDePedidos(inventario, map2); //si todo funciona bien cod_volver = 0
+                cod_volver = recepcionDePedidos(inventario, proveedores); //si todo funciona bien cod_volver = 0
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }
-                reporte(inventario, map2);
+                reporte(inventario, proveedores);
                 break;
             case 2:
-                cod_volver = atencionDePedidos(inventario, map2, talleres);
+                cod_volver = atencionDePedidos(inventario, proveedores, talleres);
                 if (cod_volver == -2) {
                     break;
                 }
-                reporte(inventario, map2);
+                reporte(inventario, proveedores);
                 break;
             case 3:
-                reporte(inventario, map2);
+                reporte(inventario, proveedores);
                 break;
             case 4:
                 talleresVendidos(talleres);
                 break;
-            //se debe añadir la funcionalidad de cada opcion del menu(la ultima, opcion de salida, queda por default)
             default:
                 break;
         }
-// Nota: La opción 5 cortará el bucle automáticamente según la lógica del bucle while que lo contiene.
     }
 }

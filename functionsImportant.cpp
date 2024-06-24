@@ -13,6 +13,11 @@ string msgError(string msg)
     cerr << "\033[31m" << msg << "\033[0m" << endl;
 }
 
+int msgMenu()
+{
+    cerr << "\033[32m" << "Regresando al menu..." << "\033[0m" << endl;
+}
+
 template<typename K, typename V>
 void leerDatosMap(map<K, V>& mapa, const string& nombreArchivo) {
     ifstream archivoEntrada(nombreArchivo);
