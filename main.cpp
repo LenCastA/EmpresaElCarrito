@@ -1,19 +1,20 @@
 #include "functionsImportant.cpp"
 #include <algorithm>
 
-float cantidadDePiezas, tipoDePieza;
+float cantidadDePiezas;
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;
 map<string, int> map2;
 vector<string> talleres;
 
-int obtenerTipoDePieza(int tipoDePieza)
+int obtenerTipoDePieza()
 {
+    int tipoDePieza;
     do {
         cout << "Ingrese el tipo de pieza: "; cin >> tipoDePieza;
-        tipoDePieza = validarEnteroPosi(tipoDePieza);
+        tipoDePieza = validarEnteroPosi(tipoDePieza); //validamos que tipoDePieza sea un numero entero
 
-        if (tipoDePieza > 5) {
+        if (tipoDePieza > 5) { //validamos que tipoDePieza sea una de las 5 opciones posibles
             msgError("Tipo de pieza invalido");
             tipoDePieza = -1;
         }
@@ -51,7 +52,7 @@ int recepcionDePedidos()
         }
     } while(cantidadDePiezas == -1);
 
-    tipoDePieza = obtenerTipoDePieza(tipoDePieza);
+    int tipoDePieza = obtenerTipoDePieza();
 
     do{
         cout << "Ingrese el tipo de proveedor (A, B o C): "; cin >> tipoDeProveedor;
@@ -90,7 +91,7 @@ int atencionDePedidos()
     cout << "-----------------------------------" << endl;
     cout << "\tAtencion de pedidos" << endl;
 
-    tipoDePieza = obtenerTipoDePieza(tipoDePieza);
+    int tipoDePieza = obtenerTipoDePieza();
     
     do {
         cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePiezas;
