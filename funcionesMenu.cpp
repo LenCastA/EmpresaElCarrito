@@ -28,29 +28,8 @@ int obtenerCantidadDePiezas()
     return cantidadDePiezas;
 }
 
-void PrintMap1(std::map<int, int>& m)
-{
-    for (auto& item : m) {
-        cout << item.first << ":" << item.second << " || ";
-    }
-}
-
-void PrintMap2(std::map<string, int>& m)
-{
-    for (auto& item : m) {
-        cout << item.first << ":" << item.second << " || ";
-    }
-}
-
-int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
-{
+string obtenerTipoDeProvedor(){
     string tipoDeProveedor;
-    cout << "-----------------------------------" << endl;
-    cout << "\tRecepcion de pedidos" << endl;
-
-    int cantidadDePiezas = obtenerCantidadDePiezas();
-    int tipoDePieza = obtenerTipoDePieza();
-
     do{
         cout << "Ingrese el tipo de proveedor (A, B o C): "; cin >> tipoDeProveedor;
 
@@ -68,6 +47,31 @@ int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
         }
 
     } while(tipoDeProveedor == "");
+
+    return tipoDeProveedor;
+}
+void PrintMap1(std::map<int, int>& m)
+{
+    for (auto& item : m) {
+        cout << item.first << ":" << item.second << " || ";
+    }
+}
+
+void PrintMap2(std::map<string, int>& m)
+{
+    for (auto& item : m) {
+        cout << item.first << ":" << item.second << " || ";
+    }
+}
+
+int recepcionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2)
+{
+    cout << "-----------------------------------" << endl;
+    cout << "\tRecepcion de pedidos" << endl;
+
+    string tipoDeProveedor = obtenerTipoDeProvedor();
+    int cantidadDePiezas = obtenerCantidadDePiezas();
+    int tipoDePieza = obtenerTipoDePieza();
 
     map1[tipoDePieza] += cantidadDePiezas;
     map2[tipoDeProveedor] += cantidadDePiezas;
