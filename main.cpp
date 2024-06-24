@@ -1,7 +1,7 @@
 #include "functionsImportant.cpp"
 #include <algorithm>
-
-float cantidadDePiezas;
+//Declaracion de variables
+float cantidadDePiezas, tipoDePieza;
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;
 map<string, int> map2;
