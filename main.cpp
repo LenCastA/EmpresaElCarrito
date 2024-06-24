@@ -22,6 +22,8 @@ int main()
         cout << "4. Talleres vendidos" << endl;
         cout << "5. Salir" << endl;
         cout << "-----------------" << endl;
+        cout << "\033[34m" << "Presione 0 en cualquier caso para volver al menu principal" << "\033[0m" << endl;
+        cout << "-----------------" << endl;
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;

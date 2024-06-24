@@ -20,13 +20,9 @@ int obtenerTipoDePieza()
 int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
-    do {
-        std::cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; std::cin >> cantidadDePiezas;
-        cantidadDePiezas = validarNatural(cantidadDePiezas, true); //validamos que cantidadDePiezas sea un numero entero
-        if (cantidadDePiezas == 0) {
-            return -2;
-        }
-    } while (cantidadDePiezas == -1);
+
+    std::cout << "Ingrese la cantidad de piezas del pedido (Si desea volver al menu ingrese 0): "; std::cin >> cantidadDePiezas;
+    cantidadDePiezas = validarNatural(cantidadDePiezas);
     return cantidadDePiezas;
 }
 
@@ -109,11 +105,8 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tAtencion de pedidos" << endl;
 
-    int cantidadDePiezas = obtenerCantidadDePiezas();
-    if (cantidadDePiezas == -2) {
-        return -2;
-    }
     int tipoDePieza = obtenerTipoDePieza();
+    int cantidadDePiezas;
 
     do {
         string opcion;
@@ -122,13 +115,9 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
             msgError("No hay suficientes piezas en el inventario");
             std::cout << "Cantidad de piezas en el inventario: " << map1[tipoDePieza] << endl;
             do {
-                std::cout << "Desea continuar con el pedido? (s/n): "; std::cin >> opcion;
-                if (opcion != "s" && opcion != "n") {
+                cout << "Desea continuar con el pedido? (s/n): "; std::cin >> opcion;
+                if (opcion != "s" && opcion != "n" && opcion.length() > 1){
                     msgError("Opcion invalida");
-                    continue;
-                }
-                if (opcion.length() > 1) {
-                    msgError("Ingrese un solo caracter");
                     continue;
                 } else {
                     opcion = tolower(opcion[0]);
@@ -138,7 +127,7 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
                         break;
                     }
                 }
-            } while(opcion != "S" && opcion != "N");
+            } while(opcion != "s" && opcion != "n");
         }
     } while(map1[tipoDePieza] < cantidadDePiezas);
 
