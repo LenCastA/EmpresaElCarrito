@@ -34,7 +34,7 @@ int main()
         switch (opcion){
             case 1:
                 recepcionDePedidos(map1, map2);
-                reporte();
+                reporte(map1, map2);
                 break;
             case 2:
                 atencionDePedidos(map1, map2, talleres);

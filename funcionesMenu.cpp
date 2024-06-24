@@ -20,11 +20,8 @@ int obtenerTipoDePieza()
 int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
-    do {
-        cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePiezas;
-        cantidadDePiezas = validarEnteroPosi(cantidadDePiezas); //validamos que cantidadDePiezas sea un numero entero
-
-    } while (cantidadDePiezas == -1);
+    cout << "Ingrese la cantidad de pedido: "; cin >> cantidadDePiezas;
+    cantidadDePiezas = validarEnteroPosi(cantidadDePiezas); //validamos que cantidadDePiezas sea un numero entero;
     return cantidadDePiezas;
 }
 
@@ -89,15 +86,37 @@ int atencionDePedidos(std::map<int, int>& map1, std::map<string, int>& map2, vec
     cout << "\tAtencion de pedidos" << endl;
 
     int tipoDePieza = obtenerTipoDePieza();
-    
-    int cantidadDePiezas = obtenerCantidadDePiezas();
+    int cantidadDePiezas;
 
-    if (map1[tipoDePieza] < cantidadDePiezas) {
-        msgError("No hay stock para completar el pedido");
+    do {
+        string opcion;
         cantidadDePiezas = obtenerCantidadDePiezas();
-    } else {
-        map1[tipoDePieza] -= cantidadDePiezas;
-    }
+        if (map1[tipoDePieza] < cantidadDePiezas) {
+            msgError("No hay suficientes piezas en el inventario");
+            cout << "Cantidad de piezas en el inventario: " << map1[tipoDePieza] << endl;
+            do {
+                cout << "Desea continuar con el pedido? (s/n): "; cin >> opcion;
+                if (opcion != "s" && opcion != "n") {
+                    msgError("Opcion invalida");
+                    continue;
+                }
+                if (opcion.length() > 1) {
+                    msgError("Ingrese un solo caracter");
+                    continue;
+                } else {
+                    opcion = tolower(opcion[0]);
+                    if (opcion == "n") {
+                        return 0;
+                    } else if (opcion == "s") {
+                        break;
+                    }
+                }
+            } while(opcion != "S" && opcion != "N");
+
+        }
+    } while(map1[tipoDePieza] < cantidadDePiezas);
+
+    map1[tipoDePieza] -= cantidadDePiezas;
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
