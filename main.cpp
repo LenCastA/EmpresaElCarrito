@@ -1,7 +1,6 @@
 #include "funcionesMenu.cpp"
 #include <algorithm>
 //Declaracion de variables
-float cantidadDePiezas, tipoDePieza;
 string tipoDeProveedor, nombreDelTaller;
 map<int, int> map1;
 map<string, int> map2;
