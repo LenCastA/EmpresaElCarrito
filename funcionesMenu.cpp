@@ -54,7 +54,7 @@ string obtenerTipoDeProvedor()
     return tipoDeProveedor;
 }
 
-void Printinventario(std::map<int, int>& m)
+void PrintInventario(std::map<int, int>& m)
 {
     for (auto& item : m) {
         std::cout << item.first << ":" << item.second << " || ";
@@ -168,7 +168,7 @@ int reporte(std::map<int, int> inventario, std::map<string, int> map2)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tInventario" << endl;
-    std::cout << "Piezas: "; Printinventario(inventario); std::cout << endl;
+    std::cout << "Piezas: "; PrintInventario(inventario); std::cout << endl;
     std::cout << "Proveedeores: "; PrintMap2(map2); std::cout << endl;
     std::cout << "-----------------------------------" << endl;
 }
@@ -180,7 +180,6 @@ int aviso(std::map<int, int> inventario)
             msgError("Es necesario reponer el stock de las piezas " + to_string(i));
         }
     }
-    
 }
 
 int talleresVendidos(vector<string> talleres)
