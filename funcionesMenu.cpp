@@ -22,7 +22,7 @@ int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
     do{
-        cout << "Ingrese la cantidad de piezas del pedido: "; cin >> cantidadDePiezas;
+        std::cout << "Ingrese la cantidad de piezas del pedido: "; std::cin >> cantidadDePiezas;
         cantidadDePiezas = validarNatural(cantidadDePiezas, true); //validamos que cantidadDePiezas sea un numero entero
         if (cantidadDePiezas == 0) {
             return -2;
