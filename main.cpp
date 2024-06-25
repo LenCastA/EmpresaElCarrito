@@ -18,14 +18,16 @@ int main()
     leerDatosArray(talleres, "talleres.txt");
 
     while (opcion != num_opciones) { //opcion final termina el programa
-        aviso(inventario); //avisar sobre faltas en el inventario       
+          
         //Imprimiendo menu
         cout << "\tMenu" << endl;
-        cout << "1. Recepcion de pedidos" << endl;
+        cout << "1. Reposición de inventario" << endl;
         cout << "2. Atencion de pedidos" << endl;
         cout << "3. Consultar inventario" << endl;
         cout << "4. Talleres vendidos" << endl;
         cout << "5. Salir" << endl;
+        cout << "-----------------" << endl;
+        aviso(inventario); //avisar sobre faltas en el inventario    
         cout << "-----------------" << endl;
         cout << "\033[34m" << "Presione 0 en cualquier caso para volver al menu principal" << "\033[0m" << endl;
         cout << "-----------------" << endl;
@@ -41,7 +43,7 @@ int main()
 
         switch (opcion){
             case 1:
-                cod_volver = recepcionDePedidos(inventario, proveedores); //si todo funciona bien cod_volver = 0
+                cod_volver = reposicionDeInventario(inventario, proveedores); //si todo funciona bien cod_volver = 0
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }

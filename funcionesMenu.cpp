@@ -72,7 +72,7 @@ void PrintProveedor(std::map<string, int>& m)
     }
 }
 
-int recepcionDePedidos(std::map<int, int>& inventario, std::map<string, int>& proveedores)
+int reposicionDeInventario(std::map<int, int>& inventario, std::map<string, int>& proveedores)
 {
     //Bienvenida al usuario
     std::cout << "-----------------------------------" << endl;
@@ -207,7 +207,7 @@ int aviso(std::map<int, int> inventario)
 {
     for (int i = 1; i < 6; i++) {
         if (inventario[i] < 8) {
-            msgError("Es necesario reponer el stock de las piezas " + to_string(i));
+            msgWarning("Aviso: Es necesario reponer el stock de las piezas " + to_string(i));
         }
     }
 }

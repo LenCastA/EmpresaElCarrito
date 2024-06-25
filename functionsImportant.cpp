@@ -12,6 +12,10 @@ void msgError(string msg)
 {
     cerr << "\033[31m" << msg << "\033[0m" << endl;
 }
+void msgWarning(string msg)
+{
+    cerr << "\033[33m" << msg << "\033[0m" << endl;
+}
 
 void msgMenu()
 {
