@@ -19,7 +19,7 @@ void msgWarning(string msg)
 
 void msgMenu()
 {
-    cerr << "\033[32m" << "Regresando al menu..." << "\033[0m" << endl;
+    cout << "\033[32m" << "Regresando al menu..." << "\033[0m" << endl;
 }
 
 template<typename K, typename V>
