@@ -120,8 +120,8 @@ int registrarReposicion(int cantidadDePiezas, int preciosPiezasCompra[], int tip
 
 void reporteFinal(int totalGanado, int totalPerdido) {
     std::cout << "-----------------------------------" << std::endl;
-    std::cout << "\tReporte de Ventas" << std::endl;
-    std::cout << "Total ganado: S/ " << totalGanado - totalPerdido << std::endl;
+    std::cout << "\tReporte de Ganancias" << std::endl;
+    std::cout << "Total: S/ " << totalGanado - totalPerdido << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 }
 
@@ -238,4 +238,3 @@ int aviso(int inventario[])
         }
     }
 }
-
