@@ -7,7 +7,11 @@ int main()
     int opcion = 0; //inicializando opcion del menu
     int num_opciones = 5; //declara numero de opciones del menu
     int minPiezasPedido = 50, maxPiezasPedido = 100;
-    int inventario[5] = {0, 0, 0, 0, 0}; //inicializando inventario
+    int inventario[5] = {100, 7, 98, 256, 4}; //inicializando inventario
+    int PRECIOS_PIEZAS_COMPRA [5] = {5, 10, 15, 20, 25}; // Precios de cada tipo de pieza
+    int PRECIOS_PIEZAS_VENTA[5] = {10, 20, 30, 40, 50}; // Precios de cada tipo de pieza
+    int totalGanado = 0; // Variable global para llevar el total ganado
+    int totalPerdido = 0; // Variable global para llevar el total de pedidos
     
     cout << "-----------------------------------" << endl;
     cout << "Bienvenido a la empresa El Carrito" << endl;
@@ -18,13 +22,10 @@ int main()
         cout << "1. Reposicion de inventario" << endl;
         cout << "2. Atencion de pedidos" << endl;
         cout << "3. Consultar inventario" << endl;
-        cout << "4. Talleres vendidos" << endl;
+        cout << "4. Reporte de ganancias" << endl;
         cout << "5. Salir" << endl;    
         cout << "-----------------" << endl;
-        cout << "\033[34m" << "Presione 0 en cualquier caso para volver al menu principal" << "\033[0m" << endl;
-        cout << "-----------------" << endl;
         aviso(inventario); //avisar sobre faltas en el inventario
-        cout << "-----------------" << endl;
 
         do {
             cout << "Ingrese una opcion: "; cin >> opcion;
@@ -37,15 +38,21 @@ int main()
 
         switch (opcion){
             case 1:
-                reposicionDeInventario(inventario, minPiezasPedido, maxPiezasPedido);
+                reposicionDeInventario(inventario, minPiezasPedido, maxPiezasPedido, PRECIOS_PIEZAS_COMPRA, totalPerdido);
                 reporte(inventario);
                 break;
             case 2:
-                atencionDePedidos(inventario);
+                atencionDePedidos(inventario, PRECIOS_PIEZAS_VENTA, totalGanado);
                 reporte(inventario);
                 break;
             case 3:
                 reporte(inventario);
+                break;
+            case 4:
+                reporteFinal(totalGanado, totalPerdido);
+                break;
+            case 5:
+                cout << "Saliendo del programa..." << endl;
                 break;
             default:
                 break;

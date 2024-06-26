@@ -51,8 +51,8 @@ string validarString(string entrada) {
 
 void printInventario(int inventario[])
 {
-    for (int i = 1; i < 6; i++) {
-        std::cout << inventario[i] << " ";
+    for (int i = 0; i < 5; i++) {
+        std::cout << "Tipo "<< i + 1 << "-" << inventario[i] << " || ";
     }
 }
 
@@ -68,6 +68,8 @@ int obtenerTipoDePieza()
             tipoDePieza = -1;
         }
     } while(tipoDePieza == -1);
+
+    tipoDePieza--; //ajustamos el valor de tipoDePieza para que sea un indice valido
     return tipoDePieza;
 }
 
@@ -81,40 +83,55 @@ int obtenerCantidadDePiezas()
     return cantidadDePiezas;
 }
 
-string obtenerTipoDeProvedor()
+int obtenerTipoDeProvedor()
 {
-    string tipoDeProveedor;
-    do{
-        std::cout << "Ingrese el tipo de proveedor (A, B o C): "; std::cin >> tipoDeProveedor;
-        if (tipoDeProveedor == "0"){
-            return "-2";
-        } else {
-            if (tipoDeProveedor.length() > 1){
-                msgError("Ingrese un solo caracter");
-                tipoDeProveedor = "";
-                continue;
-            }
+    int tipoDeProveedor;
+    do {
+        std::cout << "Ingrese el tipo de proveedor (1-3): "; std::cin >> tipoDeProveedor;
+        tipoDeProveedor = validarNatural(tipoDeProveedor);
 
-            tipoDeProveedor = toupper(tipoDeProveedor[0]);
-
-            if (tipoDeProveedor != "A" && tipoDeProveedor != "B" && tipoDeProveedor != "C"){
-                msgError("Tipo de proveedor invalido");
-                tipoDeProveedor = "";
-            }
+        if (tipoDeProveedor > 3) { 
+            msgError("Tipo de proveedor invalido");
+            tipoDeProveedor = -1;
         }
-
-    } while(tipoDeProveedor == "");
+    } while(tipoDeProveedor == -1);
 
     return tipoDeProveedor;
 }
 
-int reposicionDeInventario(int minPiezas, int maxPiezas)
+int registrarVentas(int inventario[], int PRECIOS_PIEZAS_VENTA[], int tipoPieza, int cantidadDePiezas, int& totalGanado)
+{
+    int ventaTotal = PRECIOS_PIEZAS_VENTA[tipoPieza] * cantidadDePiezas;
+    inventario[tipoPieza] -= cantidadDePiezas; // Disminuir el inventario
+    totalGanado += ventaTotal; // Actualizar el total ganado
+
+    std::cout << "Venta realizada. Total ganado en esta venta: S/ " << ventaTotal << std::endl;
+    return ventaTotal;
+}
+
+int registrarReposicion(int cantidadDePiezas, int PRECIOS_PIEZAS_COMPRA[], int tipoPieza, int& totalPerdido)
+{
+    int perdidaTotal = PRECIOS_PIEZAS_COMPRA[tipoPieza] * cantidadDePiezas;
+    totalPerdido += perdidaTotal; // Actualizar el total perdido
+
+    std::cout << "Total de dinero en la compra: S/ " << perdidaTotal << std::endl;
+    return perdidaTotal;
+}
+
+void reporteFinal(int totalGanado, int totalPerdido) {
+    std::cout << "-----------------------------------" << std::endl;
+    std::cout << "\tReporte de Ventas" << std::endl;
+    std::cout << "Total ganado: S/ " << totalGanado - totalPerdido << std::endl;
+    std::cout << "-----------------------------------" << std::endl;
+}
+
+int reposicionDeInventario(int inventario[], int minPiezas, int maxPiezas, int PRECIOS_PIEZAS_COMPRA[], int& totalPerdido)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tRecepcion de pedidos" << endl;
     std::cout << "-----------------------------------" << endl;
 
-    int cantidadDePiezas; //incializando cantidad de piezas del pedido
+    int cantidadDePiezas;
     do
     {
         cantidadDePiezas = obtenerCantidadDePiezas();
@@ -126,17 +143,22 @@ int reposicionDeInventario(int minPiezas, int maxPiezas)
 
     int tipoDePieza = obtenerTipoDePieza();
 
-    string tipoDeProveedor = obtenerTipoDeProvedor();
+    int tipoDeProveedor = obtenerTipoDeProvedor();
+
+    inventario[tipoDePieza] += cantidadDePiezas;
+
+    int monto = registrarReposicion(cantidadDePiezas, PRECIOS_PIEZAS_COMPRA, tipoDePieza, totalPerdido);
 
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tReporte" << endl;
-    std::cout << "Tipo de pieza: " << tipoDePieza << endl;
+    std::cout << "Tipo de pieza: " << tipoDePieza + 1 << endl;
     std::cout << "Tipo de proveedor: " << tipoDeProveedor << endl;
     std::cout << "Cantidad del pedido recibido: " << cantidadDePiezas << endl;
+    std::cout << "Monto pagado: S/ " << monto << endl;
     std::cout << "-----------------------------------" << endl;
 }
 
-int atencionDePedidos(int inventario[])
+int atencionDePedidos(int inventario[], int PRECIOS_PIEZAS_VENTA[], int& totalGanado)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tAtencion de pedidos" << endl;
@@ -185,12 +207,14 @@ int atencionDePedidos(int inventario[])
         nombreDelTaller = validarString(nombreDelTaller);
     } while(nombreDelTaller == "");
 
+    int monto =registrarVentas(inventario, PRECIOS_PIEZAS_VENTA, tipoDePieza, cantidadDePiezas, totalGanado);
 
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tReporte" << endl;
     std::cout << "Nombre del taller: " << nombreDelTaller << endl;
-    std::cout << "Tipo de pieza: " << tipoDePieza << endl;
+    std::cout << "Tipo de pieza: " << tipoDePieza + 1<< endl;
     std::cout << "Cantidad de pedido: " << cantidadDePiezas << endl;
+    std::cout << "Monto recibido por la venta: S/ " << monto << endl;
     std::cout << "-----------------------------------" << endl;
 
     return 0;
@@ -206,13 +230,13 @@ int reporte(int inventario[])
 
 int aviso(int inventario[])
 {
-    std::cout << "-----------------------------------" << endl;
-    std::cout << "\tAviso" << endl;
+    std::cout << "\033[1;33m-----------------------------------" << std::endl;
+    std::cout << "\tAviso" << std::endl;
     for (int i = 0; i < 5; i++) {
-        if (inventario[i] == 0) {
-            std::cout << "Es necesario reponer la pieza "<< i << endl;
+        if (inventario[i] < 8) {
+            std::cout << "Es necesario reponer la pieza " << i << std::endl;
         }
     }
-    std::cout << "-----------------------------------" << endl;
+    std::cout << "-----------------------------------\033[0m" << std::endl;
 }
 
