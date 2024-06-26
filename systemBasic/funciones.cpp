@@ -229,13 +229,13 @@ int reporte(int inventario[])
 
 int aviso(int inventario[])
 {
-    std::cout << "\033[1;33m-----------------------------------" << std::endl;
-    std::cout << "\tAviso" << std::endl;
     for (int i = 0; i < 5; i++) {
         if (inventario[i] < 8) {
+            std::cout << "\033[1;31m-----------------------------------" << std::endl;
+            std::cout << "\tAviso" << std::endl;
             std::cout << "Es necesario reponer la pieza " << i+1 << std::endl;
+            std::cout << "-----------------------------------\033[0m" << std::endl;
         }
     }
-    std::cout << "-----------------------------------\033[0m" << std::endl;
 }
 
