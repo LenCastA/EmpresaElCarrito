@@ -99,9 +99,9 @@ int obtenerTipoDeProvedor()
     return tipoDeProveedor;
 }
 
-int registrarVentas(int inventario[], int PRECIOS_PIEZAS_VENTA[], int tipoPieza, int cantidadDePiezas, int& totalGanado)
+int registrarVentas(int inventario[], int preciosPiezasVenta[], int tipoPieza, int cantidadDePiezas, int& totalGanado)
 {
-    int ventaTotal = PRECIOS_PIEZAS_VENTA[tipoPieza] * cantidadDePiezas;
+    int ventaTotal = preciosPiezasVenta[tipoPieza] * cantidadDePiezas;
     inventario[tipoPieza] -= cantidadDePiezas; // Disminuir el inventario
     totalGanado += ventaTotal; // Actualizar el total ganado
 
@@ -109,9 +109,9 @@ int registrarVentas(int inventario[], int PRECIOS_PIEZAS_VENTA[], int tipoPieza,
     return ventaTotal;
 }
 
-int registrarReposicion(int cantidadDePiezas, int PRECIOS_PIEZAS_COMPRA[], int tipoPieza, int& totalPerdido)
+int registrarReposicion(int cantidadDePiezas, int preciosPiezasCompra[], int tipoPieza, int& totalPerdido)
 {
-    int perdidaTotal = PRECIOS_PIEZAS_COMPRA[tipoPieza] * cantidadDePiezas;
+    int perdidaTotal = preciosPiezasCompra[tipoPieza] * cantidadDePiezas;
     totalPerdido += perdidaTotal; // Actualizar el total perdido
 
     std::cout << "Total de dinero en la compra: S/ " << perdidaTotal << std::endl;
@@ -125,7 +125,7 @@ void reporteFinal(int totalGanado, int totalPerdido) {
     std::cout << "-----------------------------------" << std::endl;
 }
 
-int reposicionDeInventario(int inventario[], int minPiezas, int maxPiezas, int PRECIOS_PIEZAS_COMPRA[], int& totalPerdido)
+int reposicionDeInventario(int inventario[], int minPiezas, int maxPiezas, int preciosPiezasCompra[], int& totalPerdido)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tRecepcion de pedidos" << endl;
@@ -147,7 +147,7 @@ int reposicionDeInventario(int inventario[], int minPiezas, int maxPiezas, int P
 
     inventario[tipoDePieza] += cantidadDePiezas;
 
-    int monto = registrarReposicion(cantidadDePiezas, PRECIOS_PIEZAS_COMPRA, tipoDePieza, totalPerdido);
+    int monto = registrarReposicion(cantidadDePiezas, preciosPiezasCompra, tipoDePieza, totalPerdido);
 
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tReporte" << endl;
@@ -158,13 +158,12 @@ int reposicionDeInventario(int inventario[], int minPiezas, int maxPiezas, int P
     std::cout << "-----------------------------------" << endl;
 }
 
-int atencionDePedidos(int inventario[], int PRECIOS_PIEZAS_VENTA[], int& totalGanado)
+int atencionDePedidos(int inventario[], int preciosPiezasVenta[], int& totalGanado)
 {
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tAtencion de pedidos" << endl;
 
     int tipoDePieza = obtenerTipoDePieza();
-
 
     if (inventario[tipoDePieza] == 0) {
         msgError("No hay piezas en el inventario");
@@ -207,7 +206,7 @@ int atencionDePedidos(int inventario[], int PRECIOS_PIEZAS_VENTA[], int& totalGa
         nombreDelTaller = validarString(nombreDelTaller);
     } while(nombreDelTaller == "");
 
-    int monto =registrarVentas(inventario, PRECIOS_PIEZAS_VENTA, tipoDePieza, cantidadDePiezas, totalGanado);
+    int monto =registrarVentas(inventario, preciosPiezasVenta, tipoDePieza, cantidadDePiezas, totalGanado);
 
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tReporte" << endl;
@@ -234,7 +233,7 @@ int aviso(int inventario[])
     std::cout << "\tAviso" << std::endl;
     for (int i = 0; i < 5; i++) {
         if (inventario[i] < 8) {
-            std::cout << "Es necesario reponer la pieza " << i << std::endl;
+            std::cout << "Es necesario reponer la pieza " << i+1 << std::endl;
         }
     }
     std::cout << "-----------------------------------\033[0m" << std::endl;

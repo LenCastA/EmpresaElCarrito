@@ -1,5 +1,7 @@
 #include <iostream>
 #include "funciones.cpp"
+#include <cstdlib>
+#include <ctime> 
 using namespace std;
 
 int main()
@@ -7,12 +9,27 @@ int main()
     int opcion = 0; //inicializando opcion del menu
     int num_opciones = 5; //declara numero de opciones del menu
     int minPiezasPedido = 50, maxPiezasPedido = 100;
-    int inventario[5] = {100, 7, 98, 256, 4}; //inicializando inventario
-    int PRECIOS_PIEZAS_COMPRA [5] = {5, 10, 15, 20, 25}; // Precios de cada tipo de pieza
-    int PRECIOS_PIEZAS_VENTA[5] = {10, 20, 30, 40, 50}; // Precios de cada tipo de pieza
+
+    int inventario[5];//inicializando inventario
+    int preciosPiezasCompra[5] = {5, 10, 15, 20, 25}; // Precios de cada tipo de pieza
+    int preciosPiezasVenta[5] = {10, 20, 30, 40, 50}; // Precios de cada tipo de pieza
+
     int totalGanado = 0; // Variable global para llevar el total ganado
     int totalPerdido = 0; // Variable global para llevar el total de pedidos
-    
+
+    //Generando el inventario aleatorio
+    int numero, limite_inferior, limite_superior;
+
+    srand(time(nullptr));
+
+    limite_inferior = 1;
+    limite_superior = 160;
+
+    for (int i = 0; i < 5; i++) {
+        numero = limite_inferior + rand() % (limite_superior + 1 - limite_inferior);
+        inventario[i] = numero;
+    }
+
     cout << "-----------------------------------" << endl;
     cout << "Bienvenido a la empresa El Carrito" << endl;
     cout << "-----------------------------------" << endl;
@@ -38,11 +55,11 @@ int main()
 
         switch (opcion){
             case 1:
-                reposicionDeInventario(inventario, minPiezasPedido, maxPiezasPedido, PRECIOS_PIEZAS_COMPRA, totalPerdido);
+                reposicionDeInventario(inventario, minPiezasPedido, maxPiezasPedido, preciosPiezasCompra, totalPerdido);
                 reporte(inventario);
                 break;
             case 2:
-                atencionDePedidos(inventario, PRECIOS_PIEZAS_VENTA, totalGanado);
+                atencionDePedidos(inventario, preciosPiezasVenta, totalGanado);
                 reporte(inventario);
                 break;
             case 3:
