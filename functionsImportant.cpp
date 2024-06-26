@@ -19,7 +19,7 @@ void msgWarning(string msg)
 
 void msgMenu()
 {
-    cerr << "\033[32m" << "Regresando al menu..." << "\033[0m" << endl;
+    cout << "\033[32m" << "Regresando al menu..." << "\033[0m" << endl;
 }
 
 template<typename K, typename V>
@@ -97,7 +97,6 @@ int validarNatural(int n, bool accept_0 = false){
     }
 }
 
-
 // Funcion para validar que la entrada sea un string alfabetico
 string validarString(string entrada) {
     if (entrada.length() > 2) { // Verifica si la entrada esta vacia
@@ -112,5 +111,6 @@ string validarString(string entrada) {
         msgError("Error: La entrada debe contener al menos 3 caracteres.");
         return "";
     }
-
 }
+
+

@@ -5,7 +5,7 @@ int obtenerTipoDePieza()
 {
     int tipoDePieza;
     do {
-        std::cout << "Ingrese el tipo de pieza: "; std::cin >> tipoDePieza;
+        std::cout << "Ingrese el tipo de pieza (1-5): "; std::cin >> tipoDePieza;
         tipoDePieza = validarNatural(tipoDePieza, true); //validamos que tipoDePieza sea un numero entero
 
         if (tipoDePieza > 5) { //validamos que tipoDePieza sea una de las 5 opciones posibles
@@ -22,7 +22,7 @@ int obtenerCantidadDePiezas()
 {
     int cantidadDePiezas;
     do{
-        cout << "Ingrese la cantidad de piezas del pedido: "; cin >> cantidadDePiezas;
+        std::cout << "Ingrese la cantidad de piezas del pedido: "; std::cin >> cantidadDePiezas;
         cantidadDePiezas = validarNatural(cantidadDePiezas, true); //validamos que cantidadDePiezas sea un numero entero
         if (cantidadDePiezas == 0) {
             return -2;
@@ -77,6 +77,7 @@ int reposicionDeInventario(std::map<int, int>& inventario, std::map<string, int>
     //Bienvenida al usuario
     std::cout << "-----------------------------------" << endl;
     std::cout << "\tRecepcion de pedidos" << endl;
+    std::cout << "-----------------------------------" << endl;
 
     int cantidadDePiezas; //incializando cantidad de piezas del pedido
     do

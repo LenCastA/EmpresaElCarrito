@@ -17,19 +17,21 @@ int main()
     leerDatosMap(proveedores, "proveedores.txt");
     leerDatosArray(talleres, "talleres.txt");
 
+    cout << "-----------------------------------" << endl;
+    cout << "Bienvenido a la empresa El Carrito" << endl;
+    cout << "-----------------------------------" << endl;
     while (opcion != num_opciones) { //opcion final termina el programa
-          
         //Imprimiendo menu
         cout << "\tMenu" << endl;
         cout << "1. Reposicion de inventario" << endl;
         cout << "2. Atencion de pedidos" << endl;
         cout << "3. Consultar inventario" << endl;
-        cout << "4. Historial de ventas" << endl;
-        cout << "5. Salir" << endl;
-        cout << "-----------------" << endl;
-        aviso(inventario); //avisar sobre faltas en el inventario    
+        cout << "4. Talleres vendidos" << endl;
+        cout << "5. Salir" << endl;    
         cout << "-----------------" << endl;
         cout << "\033[34m" << "Presione 0 en cualquier caso para volver al menu principal" << "\033[0m" << endl;
+        cout << "-----------------" << endl;
+        aviso(inventario); //avisar sobre faltas en el inventario
         cout << "-----------------" << endl;
 
         do {
