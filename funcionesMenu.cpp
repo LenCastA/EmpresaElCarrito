@@ -115,6 +115,8 @@ int reposicionDeInventario(std::map<int, int>& inventario, std::map<string, int>
     std::cout << "Tipo de proveedor: " << tipoDeProveedor << endl;
     std::cout << "Cantidad del pedido recibido: " << cantidadDePiezas << endl;
     std::cout << "-----------------------------------" << endl;
+
+    return 0;
 }
 
 int atencionDePedidos(std::map<int, int>& inventario, std::map<string, int>& proveedores, vector<string>& talleres)
