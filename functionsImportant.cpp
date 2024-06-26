@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 #include <string>
 #include <limits>
 #include <cctype>
@@ -112,5 +111,3 @@ string validarString(string entrada) {
         return "";
     }
 }
-
-
