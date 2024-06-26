@@ -2,7 +2,7 @@
 
 int main()
 {
-    int cod_volver; //inicializando una variable para retroceder al menu
+    int cod_volver; //inicializando una variable para el codigo de retroceder
     int opcion = 0; //inicializando opcion del menu
     int num_opciones = 5; //declara numero de opciones del menu
     int minPiezasPedido = 50, maxPiezasPedido = 100;
@@ -21,10 +21,10 @@ int main()
           
         //Imprimiendo menu
         cout << "\tMenu" << endl;
-        cout << "1. Reposición de inventario" << endl;
+        cout << "1. Reposicion de inventario" << endl;
         cout << "2. Atencion de pedidos" << endl;
         cout << "3. Consultar inventario" << endl;
-        cout << "4. Talleres vendidos" << endl;
+        cout << "4. Historial de ventas" << endl;
         cout << "5. Salir" << endl;
         cout << "-----------------" << endl;
         aviso(inventario); //avisar sobre faltas en el inventario    
@@ -43,7 +43,7 @@ int main()
 
         switch (opcion){
             case 1:
-                cod_volver = reposicionDeInventario(inventario, proveedores); //si todo funciona bien cod_volver = 0
+                cod_volver = reposicionDeInventario(inventario, proveedores, minPiezasPedido, maxPiezasPedido); //si todo funciona bien cod_volver = 0
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }

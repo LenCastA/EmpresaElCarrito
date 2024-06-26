@@ -72,7 +72,7 @@ void PrintProveedor(std::map<string, int>& m)
     }
 }
 
-int reposicionDeInventario(std::map<int, int>& inventario, std::map<string, int>& proveedores)
+int reposicionDeInventario(std::map<int, int>& inventario, std::map<string, int>& proveedores, int minPiezas, int maxPiezas)
 {
     //Bienvenida al usuario
     std::cout << "-----------------------------------" << endl;
@@ -86,10 +86,10 @@ int reposicionDeInventario(std::map<int, int>& inventario, std::map<string, int>
             msgMenu();
             return -2;
         }
-        if (cantidadDePiezas < 50 || cantidadDePiezas > 100){
+        if (cantidadDePiezas < minPiezas || cantidadDePiezas > maxPiezas){
             msgError("El pedido debe estar comprendido entre 50 y 100 piezas.");
         }
-    } while (cantidadDePiezas < 50 || cantidadDePiezas > 100);
+    } while (cantidadDePiezas < minPiezas || cantidadDePiezas > maxPiezas);
 
     int tipoDePieza = obtenerTipoDePieza();
     if (tipoDePieza == -2) {
