@@ -45,7 +45,7 @@ int main()
 
         switch (opcion){
             case 1:
-                cod_volver = reposicionDeInventario(inventario, proveedores, minPiezasPedido, maxPiezasPedido); //si todo funciona bien cod_volver = 0
+                cod_volver = reposicionDeInventario(inventario, proveedores, minPiezasPedido, maxPiezasPedido);
                 if (cod_volver == -2) { //si la funcion devuelve -2 se regresa al menu inicial (-2 codigo para volver a la accion anterior)
                     break;
                 }

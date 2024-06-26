@@ -62,7 +62,7 @@ void leerDatosArray(vector<string>& datos, const string& nombreArchivo) {
 }
 
 void guardarDatosArray(const vector<string>& datos, const string& nombreArchivo) {
-    std::ofstream archivoSalida(nombreArchivo);
+    ofstream archivoSalida(nombreArchivo);
     if (archivoSalida.is_open()) {
         for (const auto& dato : datos) {
             archivoSalida << dato << std::endl;
